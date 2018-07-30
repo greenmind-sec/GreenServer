@@ -75,12 +75,15 @@ from sys import stdout, exit
 inicio = 1
 fim = 300
 
+# LIBs bottle
+import bottle
 
 
 parser = argparse.ArgumentParser(description = 'GreenMind.')
 
 parser.add_argument('--url','-u', action = 'store', dest = 'url',help = "usage -u 'http://businesscorp.com.br/'.")
 parser.add_argument('-o','--output', action = 'store', dest = 'save', help = 'save output file.')
+parser.add_argument('--server', action='store', dest='servidor',help='server port')
 arguments = parser.parse_args()
 
 
@@ -350,6 +353,19 @@ def green_googlesearch(url):
         dorme_por = randint(0, 2)
         time.sleep(dorme_por)
 
+#
+# SERVER
+#
+#Home
+@bottle.route('/')
+def homepage():
+	msg_spam = '''
+	Bem vindo ao GreenRecon
+	'''
+	return bottle.template('principal',{'username':'GreenMind','msgspam':msg_spam})
+
+
+
 # =======================
 # DEFINIÇÃO DE MENUS
 # =======================
@@ -390,6 +406,13 @@ else:
             if arguments.url == None or arguments.save == None:
                 main_menu()
             else:
+                #Check Port Server
+                if arguments.servidor == None:
+                    servidor_porta = 8080
+                else:
+                    servidor_porta = arguments.servidor
+
+                bottle.run(host='localhost', port=servidor_porta)
 
                 # ===============================================
                 # GOOGLE SEARCH

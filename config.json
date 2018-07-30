@@ -1,0 +1,11 @@
+{
+  "key": "greenmind",
+  "check": true,
+  "shodan_key": "",
+  "whatcms_key": "",
+  "info": {
+    "name": "",
+    "number": "12345",
+    "new_key": "new_greenmind"
+  }
+}
